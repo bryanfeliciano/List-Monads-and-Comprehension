@@ -3,10 +3,10 @@ import Control.Monad
 
 -- Building a list with Monads --
 
-powersOfTwo :: Int -> [Int]
-powersOfTwo n = do
-    value <- [1 .. n]
-    return (2 ^ value)
+-- powersOfTwo :: Int -> [Int]
+-- powersOfTwo n = do
+--     value <- [1 .. n]
+--     return (2 ^ value)
 
 -- the Map equivilant -- 
 
@@ -15,12 +15,12 @@ powersOfTwoMap n = map (\x -> 2 ^ x) [1 .. n]
 
 -- From here on it  will all be Monads --
 
-powersOfTwoAndThree :: Int -> [(Int,Int)]
-powersOfTwoAndThree n = do
-    value <- [1 .. n]
-    let powersOfTwo = 2 ^ value
-    let powersOfThree = 3 ^ value
-    return (powersOfTwo,powersOfThree)
+-- powersOfTwoAndThree :: Int -> [(Int,Int)]
+-- powersOfTwoAndThree n = do
+--     value <- [1 .. n]
+--     let powersOfTwo = 2 ^ value
+--     let powersOfThree = 3 ^ value
+--     return (powersOfTwo,powersOfThree)
 
 allEvenOdds :: Int -> [(Int,Int)]
 allEvenOdds n = do
@@ -42,3 +42,16 @@ evenSquares = do
     let nSquared = n^2
     guard (even nSquared)
     return nSquared
+
+--  Haskell has more refined way to handle do-notation with list  --
+
+powersOfTwo :: Int -> [Int]
+powersOfTwo n = [value ^ 2 | value <- [1 .. n]]
+
+powersOfTwoAndThree :: Int -> [(Int,Int)]
+powersOfTwoAndThree n = [(powersOfTwo,powersOfThree)
+                        | value <- [1 .. n]
+                        , let powersOfTwo = 2^value
+                        , let powersOfThree = 3^value]
+
+
