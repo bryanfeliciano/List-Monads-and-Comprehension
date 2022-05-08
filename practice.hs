@@ -1,4 +1,5 @@
 import Data.List
+import Control.Monad
 
 -- Building a list with Monads --
 
@@ -26,3 +27,18 @@ allEvenOdds n = do
     evenValue <- [2,4 .. n]
     oddValue <- [1,3 .. n]
     return (evenValue,oddValue)
+
+-- intro to guards form the control.monad module
+
+evenGuards :: Int -> [Int]
+evenGuards n = do
+    value <- [1 .. n]
+    guard (even value)
+    return value
+
+evenSquares :: [Int]
+evenSquares = do
+    n <- [0 .. 9]
+    let nSquared = n^2
+    guard (even nSquared)
+    return nSquared
